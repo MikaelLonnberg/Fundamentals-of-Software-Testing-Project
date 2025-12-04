@@ -1,0 +1,82 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+Documentation	Issue Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+# TODO: Write Precondition and Postcondition, Tags 
+
+Pre Condition	Valid Login Credentials, Created A Project
+Post Condition	Log Out Of GitLab, Close All Browsers
+Tags	Issue, IssueManagement, GitLab
+
+#******************* Common Variables ********************
+
+
+*** Variables ***
+
+ProjectUrl= https://gitlab.com/dashboard/projects
+Project= Test Project
+Issue_Title= XXX
+Edited_Issue_Title= XXXXXX
+Issue_Description= ZZZ
+Empty= 
+
+# NOTE: Please Remove your login credential before uploading Assignments
+
+# TODO: Write Issue creation field variables, Updated name of the issue
+
+
+
+#******************** Test Cases *************************
+
+*** Test Case ***
+
+# Positive Tests
+
+Create Issue
+	Navigate to Project Page	ProjectUrl
+	Press Issues Button From Left Column
+	Press New Item Button
+	Input Title	Issue_Title
+	Input Description	Issue_Description
+	Press Create Issue Button
+	Verify That Issue Is Added To Project
+
+Update Name Of Issue
+	Navigate to Project Page	ProjectUrl
+	Press Issues Button From Left Column
+	Press An Issue To Select It
+	Press Edit Button
+	Input New Title For Issue	Edited_Issue_Title
+	Press Save Changes Button
+	Verify That Issue Name Changed	Edited_Issue_Title
+
+Create Issue With Existing Name
+	Navigate to Project Page	ProjectUrl
+	Press Issues Button From Left Column
+	Press New Item Button
+	Input Title	Issue_Title
+	Input Description	Issue_Description
+	Press Create Issue Button
+	Verify That Issue Is Added To Project With Same Name	Issue_Title
+
+Delete First Issue
+	Navigate to Project Page	ProjectUrl
+	Press Issues Button From Left Column
+	Press First Issue To Select It
+	Press Three Dots On Right Side Of Title
+	Press Delete Issue Button
+	Confirm That You Want To Delete Issue By Pressing Delete Issue Button
+	Verify That Issue Is No Longer Visible In Issue List
+
+# Negative Test
+
+Create Issue Without Title
+	Navigate to Project Page	ProjectUrl
+	Press Issues Button From Left Column
+	Press New Item Button
+	Leave Title Empty	Empty
+	Input Description	Issue_Description
+	Press Create Issue Button	
+	Verify That Error Message Shows A Title Is Required

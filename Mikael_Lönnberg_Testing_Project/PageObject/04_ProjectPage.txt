@@ -1,0 +1,85 @@
+
+#******************** Settings ************************
+
+*** Settings ***
+
+# TODO: Write Dcocumentation e.g. Project Test scenario. CRUD Operation: Create, Read, Update, Delete
+
+Documentation	
+
+# TODO: Write Precondition, Postcondition, Tags
+
+Pre Condition	Valid Login Credentials
+Post Condition	Log Out Of GitLab, Close All Browsers
+Tags	Project, ProjectCreation, GitLab
+
+#******************* Common Variables ********************
+
+*** Variables ***
+
+ProjectUrl= https://gitlab.com/dashboard/projects
+Blank_Project_Name= Blank Project
+Template_Project_Name= Template Project
+Edited_Template_Project_Name= Template Project 2
+Username= XXX
+Confirm_Delete= YYY
+Delete_Message= ZZZ
+
+
+#******************** Test Cases *************************
+
+*** Test Cases ***
+
+# Positive Tests
+
+Create Blank Project
+	Navigate To Project Page ProjectUrl
+	Press New Project Button
+	Press Create Blank Project Button
+	Input Project Name Blank_Project_Name
+	Set Project URL To Username Username
+	Press Create Project Button
+	Verify That Message Shows Project 'Blank Project' was successfully created.
+
+Create Template Project
+	Navigate To Project Page ProjectUrl
+	Press New Project Button
+	Press Create Form Template Button
+	Select Template And Press Use Template Button
+	Input Project Name Template_Project_Name
+	Set Project URL To Username Username
+	Press Create Project Button
+	Verify That Message Shows The project was successfully imported.
+
+Update Name Of Template project
+	Navigate To Project Page ProjectUrl
+	Press Personal Button
+	Press Three Dots On The Right Side Template Project Column	Template_Project_Name
+	Press Edit Button
+	Input New Project Name	Edited_Template_Project_Name
+	Press Save Changes
+	Verify That Message Shows Project 'Template Project 2' was successfully updated.
+
+Delete Template Project
+	Navigate To Project Page ProjectUrl
+	Press Personal Button
+	Press Three Dots On The Right Side Template Project Column	Template_Project_Name
+	Press Delete Button
+	Input Confirmation Text	Confirm_Delete
+	Press Yes, Delete Project Button
+	Verify That Message Shows Confirmation	Delete_Message
+
+# Negative Test
+
+Create A Blank Project With Existing Name
+	Navigate To Project Page ProjectUrl
+	Press New Project Button
+	Press Create Form Template Button
+	Select Template And Press Use Template Button
+	Input Project Name Template_Project_Name
+	Set Project URL To Username Username
+	Press Create Project Button
+	Verify That Error Message Shows The form contains the following errors:
+									Project namespace name has already been taken
+									Name has already been taken
+									Path has already been taken
