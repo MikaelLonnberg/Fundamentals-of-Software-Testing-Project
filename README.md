@@ -1,3 +1,3 @@
 # Mikael Lönnberg
 # Fundamentals-of-Software-Testing-Project
-Final project Fundamentals of Software Testing
+Final project of Fundamentals of Software Testing
